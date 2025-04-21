@@ -20,7 +20,7 @@ public class Divisibility {
 	            }
 	            System.out.println();
 	        }
-	        
+	        scanner.close();
 	    }
 
 }

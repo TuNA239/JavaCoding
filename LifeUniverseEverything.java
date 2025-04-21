@@ -12,6 +12,7 @@ public class LifeUniverseEverything {
 			}
 			System.out.println(num);
 		}
+		scanner.close();
 	}
 
 }

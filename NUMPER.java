@@ -33,6 +33,7 @@ public class NUMPER {
 
 			System.out.println();
 		}
+		scanner.close();
 	}
 
 	public static int sqrtInt(int n) {

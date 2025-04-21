@@ -18,7 +18,7 @@ public class PrimeGenerator {
 				System.out.println();
 			}
 		}
-
+		sc.close();
 	}
 
 	public static boolean isPrime(int n) {

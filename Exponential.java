@@ -12,7 +12,7 @@ public class Exponential {
             long result = power(a, b);
             System.out.println("#" + i + " " + result);
         }
-
+        scanner.close();
 	}
 
 	public static long power(int a, int b) {
