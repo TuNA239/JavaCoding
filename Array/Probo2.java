@@ -3,45 +3,56 @@ package Array;
 import java.util.Scanner;
 
 public class Probo2 {
+    static final int MAX_N = 502;
+    static char[][] map = new char[MAX_N][MAX_N];
+    static int[] ret = new int[5];
+    static int T, N, M;
 
-	public static void main(String[] args) {
+    public static void check(int r, int c) {
+        for (int i = 3; i >= 0; i--) {
+            if (map[r + i][c] == '*') {
+                ret[i + 1]++;
+                return;
+            }
+        }
+        ret[0]++;
+    }
+
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int T = Integer.parseInt(sc.nextLine());
+        T = sc.nextInt();
 
-        for (int t = 1; t <= T; t++) {
-            int M = sc.nextInt();
-            int N = sc.nextInt();
+        for (int tc = 1; tc <= T; tc++) {
+            int originalN = sc.nextInt();
+            int originalM = sc.nextInt();
+            N = 5 * originalN + 1;
+            M = 5 * originalM + 1;
+
+            for (int i = 0; i < 5; i++) {
+                ret[i] = 0;
+            }
+
             sc.nextLine();
 
-            char[][] matrix = new char[5 * M + 1][5 * N + 1];
-            for (int i = 0; i < 5 * M + 1; i++) {
-                matrix[i] = sc.nextLine().toCharArray();
-            }
-
-            int[] count = new int[5];
-
-            for (int row = 0; row < M; row++) {
-                for (int col = 0; col < N; col++) {
-                    int starCount = 0;
-                    int startRow = 1 + row * 5;
-                    int startCol = 1 + col * 5;
-                    for (int i = 0; i < 4; i++) {
-                        for (int j = 0; j < 4; j++) {
-                            if (matrix[startRow + i][startCol + j] == '*') {
-                                starCount++;
-                            }
-                        }
-                    }
-
-                    if (starCount % 4 == 0) {
-                        count[starCount / 4]++;
-                    }
+            for (int i = 0; i < N; i++) {
+                String line = sc.nextLine();
+                while (line.length() < M) {
+                    line += " ";
+                }
+                for (int j = 0; j < M; j++) {
+                    map[i][j] = line.charAt(j);
                 }
             }
-            
-            System.out.print("#" + t);
+
+            for (int i = 1; i < N; i += 5) {
+                for (int j = 1; j < M; j += 5) {
+                    check(i, j);
+                }
+            }
+
+            System.out.print("#" + tc + " ");
             for (int i = 0; i < 5; i++) {
-                System.out.print(" " + count[i]);
+                System.out.print(ret[i] + " ");
             }
             System.out.println();
         }

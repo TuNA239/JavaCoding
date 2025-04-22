@@ -20,6 +20,7 @@ public class FirstDuplicate {
 
                 if (freq[arr[i]] == 2 && answer == -1) {
                     answer = arr[i];
+                    break;
                 }
             }
 

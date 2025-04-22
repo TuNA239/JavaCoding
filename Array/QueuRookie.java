@@ -4,60 +4,69 @@ import java.util.Scanner;
 
 public class QueuRookie {
 
-	public static void main(String[] args) {
+	static int N;
+    static int[] height = new int[1001];
+    static int[] taller = new int[1001];
+    static int[] result = new int[1001];
+
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int T = sc.nextInt();
 
-        for(int t = 0; t < T; t++) {
-        	int N = sc.nextInt();
-        	int[][] arr = new int[2][N];
-        	
-        	for(int i = 0; i < N; i++) {
-        		arr[0][i] = sc.nextInt();
-        	}
-        	
-        	for(int i = 0; i < N; i++) {
-        		arr[1][i] = sc.nextInt();
-        	}
-        	
-        	for(int i = 0; i < N-1; i++) {
-        		for(int j = i + 1; j < N; j++) {
-        			if(arr[0][i] > arr[0][j]) {
-        				int temp = arr[0][i];
-        				int temp2 = arr[0][j];
-        				arr[0][j] = temp;
-        				arr[0][i] = temp2;
-        				
-        				int pos = arr[1][i];
-        				int pos2 = arr[1][j];
-        				arr[1][j] = pos;
-        				arr[1][i] = pos2;
-        			}
-        		}
-        	}
-        	
-        	int index = 0;
-        	for(int i = 1; i < N ; i++) {
-        		for(int j = i + 1; j <N; j++) {
-        			if(index < arr[1][i]) {
-        				int temp = arr[0][i];
-        				int temp2 = arr[0][j];
-        				arr[0][j] = temp;
-        				arr[0][i] = temp2;
-        			}
-        		}
-//        		int temp = arr[0][i];
-//				int temp2 = arr[0][index];
-//				arr[0][index] = temp;
-//				arr[0][i] = temp2;
-        	}
-        	
-        	for(int i = 0; i < N; i ++) {
-        		System.out.print(arr[0][i] + ", ");
-        	}
+        for (int t = 1; t <= T; t++) {
+            N = sc.nextInt();
+
+            for (int i = 0; i < N; i++) {
+                height[i] = sc.nextInt();
+            }
+
+            for (int i = 0; i < N; i++) {
+                taller[i] = sc.nextInt();
+            }
+
+            sort();
+
+            for (int i = 0; i < N; i++) {
+                result[i] = -1;
+            }
+
+            for (int i = 0; i < N; i++) {
+                int cnt = 0;
+                for (int j = 0; j < N; j++) {
+                    if (result[j] == -1) {
+                        if (cnt == taller[i]) {
+                            result[j] = height[i];
+                            break;
+                        }
+                        cnt++;
+                    }
+                }
+            }
+
+            for (int i = 0; i < N; i++) {
+                System.out.print(result[i]);
+                if (i < N - 1) System.out.print(" ");
+            }
+            System.out.println();
         }
-        
-        
+
+        sc.close();
+    }
+
+    static void sort() {
+        for (int i = 0; i < N - 1; i++) {
+            for (int j = i + 1; j < N; j++) {
+                if (height[j] < height[i] || (height[j] == height[i] && taller[j] < taller[i])) {
+                    int temp = height[i];
+                    height[i] = height[j];
+                    height[j] = temp;
+
+                    temp = taller[i];
+                    taller[i] = taller[j];
+                    taller[j] = temp;
+                }
+            }
+        }
     }
 
 }
